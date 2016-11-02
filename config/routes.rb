@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :orders, only: [:index, :show]
   resources :users,  only: [:index, :show]
 
-  resources :locations, only: [:index]
+  get '/search', to: 'search#index'
 
   namespace :api do
     namespace :v1 do
