@@ -1,6 +1,7 @@
-stores within 25 miles of 
+<h1>stores within 25 miles of <%= @zip %></h1>
+<h6> <%= @stores.count %> Total Stores</h6>
 
-<% @stores.each do |store| %>
+<% @stores.take(15).each do |store| %>
   <%= store.name %><br />
   <%= store.city %><br />
   <%= store.distance %><br />
