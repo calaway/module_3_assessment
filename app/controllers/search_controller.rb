@@ -9,6 +9,6 @@ class SearchController < ApplicationController
 
     raw_stores = JSON.parse(response.body)["stores"]
 
-    Store.return_stores
+    @stores = Store.return_stores(raw_stores)
   end
 end
