@@ -3,10 +3,10 @@
 
 <% @stores.take(15).each do |store| %>
   <div class="store">
-    <%= store.name %><br />
-    <%= store.city %><br />
-    <%= store.distance %><br />
-    <%= store.phone %><br />
-    <%= store.type %><br /><br />
+    Store name: <%= store.name %><br />
+    City: <%= store.city %><br />
+    Distance: <%= store.distance %><br />
+    Phone: <%= store.phone %><br />
+    Store type: <%= store.type %><br /><br />
   </div>
 <% end %>
