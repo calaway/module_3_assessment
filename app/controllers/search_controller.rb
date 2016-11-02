@@ -1,9 +1,7 @@
 class SearchController < ApplicationController
   def index
-    @zip = params["q"]
+    raw_stores = StoreLocationService.fetch(params["zip"])
 
-    raw_stores = StoreLocationService.fetch(@zip)
-
-    @stores = Store.return_stores(raw_stores)
+    @stores = Store.return_stores(raw_stores, params["zip"])
   end
 end

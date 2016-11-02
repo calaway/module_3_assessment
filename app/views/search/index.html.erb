@@ -1,4 +1,4 @@
-<h1>stores within 25 miles of <%= @zip %></h1>
+<h1>stores within 25 miles of <%= @stores.first.zip %></h1>
 <h6> <%= @stores.count %> Total Stores</h6>
 
 <% @stores.take(15).each do |store| %>
