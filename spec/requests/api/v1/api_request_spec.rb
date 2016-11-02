@@ -4,8 +4,10 @@ RSpec.describe "Request is sent to API" do
   it "can create a new item" do
     params = {name: "widget", description: "an arbitrary unit of production"}
     post "/api/v1/items", params: params
+    item_response = JSON.parse(response.body)
 
-    expect(response).to be_success
+    expect(response.code).to eq("201")
+    expect(item_response["id"])
     expect(Item.last.name).to eq("widget")
   end
 
@@ -15,7 +17,7 @@ RSpec.describe "Request is sent to API" do
     get "/api/v1/items/#{item.id}"
     item_response = JSON.parse(response.body)
 
-    expect(response).to be_success
+    expect(response.code).to eq("400")
     expect(item_response["name"]).to eq(item.name)
     expect(item_response["created_at"]).to be(nil)
     expect(item_response["updated_at"]).to be(nil)
@@ -27,7 +29,7 @@ RSpec.describe "Request is sent to API" do
     get "/api/v1/items"
     item_response = JSON.parse(response.body)
 
-    expect(response).to be_success
+    expect(response.code).to eq("400")
     expect(item_response.count).to eq(2)
     expect(item_response.last["name"]).to eq(items.last.name)
   end
@@ -40,7 +42,6 @@ RSpec.describe "Request is sent to API" do
     params = {name: "widget", description: "an arbitrary unit of production"}
     patch "/api/v1/items/#{item.id}", params: params
 
-    expect(response).to be_success
     expect(Item.find(item.id).name).to eq("widget")
   end
 
@@ -51,6 +52,7 @@ RSpec.describe "Request is sent to API" do
 
     delete "/api/v1/items/#{item.id}"
 
-    expect(Item.count).to_not eq(0)
+    expect(response.code).to eq("400")
+    expect(Item.count).to eq(0)
   end
 end
