@@ -7,8 +7,13 @@ RSpec.describe "Request is sent to API" do
     item_response = JSON.parse(response.body)
 
     expect(response.code).to eq("201")
-    expect(item_response["id"])
     expect(Item.last.name).to eq("widget")
+    
+    expect(item_response["id"]).to eq(Item.last.id)
+    expect(item_response["name"]).to eq("widget")
+    expect(item_response["description"]).to eq("an arbitrary unit of production")
+    expect(item_response["created_at"]).to eq(nil)
+    expect(item_response["updated_at"]).to eq(nil)
   end
 
   it "can return one item" do
@@ -17,7 +22,7 @@ RSpec.describe "Request is sent to API" do
     get "/api/v1/items/#{item.id}"
     item_response = JSON.parse(response.body)
 
-    expect(response.code).to eq("400")
+    expect(response.code).to eq("200")
     expect(item_response["name"]).to eq(item.name)
     expect(item_response["created_at"]).to be(nil)
     expect(item_response["updated_at"]).to be(nil)
@@ -29,7 +34,7 @@ RSpec.describe "Request is sent to API" do
     get "/api/v1/items"
     item_response = JSON.parse(response.body)
 
-    expect(response.code).to eq("400")
+    expect(response.code).to eq("200")
     expect(item_response.count).to eq(2)
     expect(item_response.last["name"]).to eq(items.last.name)
   end
@@ -52,7 +57,7 @@ RSpec.describe "Request is sent to API" do
 
     delete "/api/v1/items/#{item.id}"
 
-    expect(response.code).to eq("400")
+    expect(response.code).to eq("204")
     expect(Item.count).to eq(0)
   end
 end
