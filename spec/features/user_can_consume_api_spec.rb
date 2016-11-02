@@ -7,10 +7,10 @@ RSpec.feature "" do
       # When I visit "/"
       visit "/"
       # And I fill in a search box with "80202" and click "search"
-      fill_in "search_box", with: "80202"
+      fill_in "Search Best Buy Locations", with: "80202"
       click_on "search"
       # Then my current path should be "/search" (ignoring params)
-      expect(current_path).to be("/search")
+      expect(current_path).to eq("/search")
       # And I should see stores within 25 miles of 80202
       expect(page).to have_content("store1")
       # And I should see a message that says "17 Total Stores"
