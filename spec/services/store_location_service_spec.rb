@@ -8,11 +8,12 @@ RSpec.describe type: :model do
 
       expect(raw_stores.class).to eq(Array)
       expect(raw_stores.count).to eq(17)
-      expect(page).to have_content("Cherry Creek Shopping Center")
-      expect(page).to have_content("Denver")
-      expect(page).to have_content("3.25")
-      expect(page).to have_content("303-270-9189")
-      expect(page).to have_content("Mobile")
+
+      expect(raw_stores.first["longName"]).to eq("Best Buy Mobile - Cherry Creek Shopping Center")
+      expect(raw_stores.first["city"]).to eq("Denver")
+      expect(raw_stores.first["distance"]).to eq(3.25)
+      expect(raw_stores.first["phone"]).to eq("303-270-9189")
+      expect(raw_stores.first["storeType"]).to eq("Mobile")
     end
   end
 end
