@@ -6,8 +6,9 @@ class SearchController < ApplicationController
       faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
     end
     response = conn.get "/v1/stores(area(80202,100))?format=json&show=longName,city,distance,phone,storeType&pageSize=15&apiKey=#{ENV["API_KEY"]}"
-    require "pry"; binding.pry
-response.body
 
+    raw_stores = JSON.parse(response.body)["stores"]
+
+    Store.return_stores
   end
 end
